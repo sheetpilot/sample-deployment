@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sales-pod
+  namespace: sales-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sales
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sales
+    spec:
+      containers:
+      - image: sales-api-amd64:1.0
+        name: sales-api
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+          requests:
+            cpu: 1000m
+            memory: 2Gi
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      terminationGracePeriodSeconds: 60
+
