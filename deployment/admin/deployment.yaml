@@ -2,25 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   creationTimestamp: null
-  name: my-nginx
+  name: admin
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: nginx
+      app: admin
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: nginx
+        app: admin
     spec:
       containers:
       - image: nginx:1.14.2
-        name: nginx
+        name: admin
         ports:
         - containerPort: 80
-          name: nginx-tcp
+          name: admin-tcp
           protocol: TCP
         readinessProbe:
           exec:
@@ -44,6 +44,6 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
-      serviceAccountName: nginx-service
+      serviceAccountName: admin-service
       terminationGracePeriodSeconds: 30
 status: {}
