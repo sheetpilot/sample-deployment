@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   name: admin
 spec:
-  replicas: 5
+  replicas: 10
   selector:
     matchLabels:
       app: admin
@@ -36,8 +36,8 @@ spec:
             cpu: "1"
             memory: 10Gi
           requests:
-            cpu: 500m
-            memory: 2Gi
+            cpu: 700m
+            memory: 1Gi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
