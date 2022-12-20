@@ -1,15 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
-Name: "win"
-metadata(ɕѥQх聹ձ(聅)v3&WƖ63�6VV7F#F6&V9΂\YZ[]YNB[\]N
+metadata:
+  creationTimestamp: null
+  name: admin
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: admin
+  strategy: {}
+  template:
     metadata:
       creationTimestamp: null
-(聅((r6FW'3vSv烣B 	[YNYZ[ܝ΂HontainerPort: 80
+      labels:
+        app: admin
+    spec:
+      containers:
+      - image: nginx:1.14.2
+        name: admin
+        ports:
+        - containerPort: 80
           name: admin-tcp
-  ɽѽQ
-@(ɕAɽpWV36C	HZ[\U\'     initialDelaySeconds: 60
-          periodM(ՍQɕ͡(rFVWE6V6G30&W6W&6W3	[Z]΂NH'     memory: 10Gi
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - ls
+          failureThreshold: 3
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: "1"
+            memory: 10Gi
           requests:
-       ((rFW&֖FW76vUFFWbFW&֖F\Z[][ۓY\YTXN[B'  dnsPolicy: ClusterFirst
-      restartPolicy݅(͍ձ9聑ձе͍ղvW 6V7W&G6FWCТ6W'f6T69[[YNYZ[\\XB\Z[][ۑܘXePeriodSeconds: 30
+            cpu: 500m
+            memory: 2Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccountName: admin-service
+      terminationGracePeriodSeconds: 30
 status: {}
